@@ -13,7 +13,7 @@ p(x1 = 1 | y = 0) = 1
 p(x2 = 0 | y = 0) = 0.75   
 
 c. Naive bayes predicts y = 0  
-   ![figure 1.1c](/figs/q1_Naive_Bayes_By_Hand.jpg)
+   ![figure 1.1c](/a2/figs/q1_Naive_Bayes_By_Hand.jpg)
 
 ## 1.2)
 
@@ -32,12 +32,12 @@ Our Naive Bayes classifier performs quite well compared to Random Forest, 0.188 
 validation error changes slightly each run due to its randomness. Our Naive Bayes gets a validation error of 0.188 compared to sklearn's Naive 
 Bayes that gets 0.187. This 0.001 difference is likely due to sklearn including Laplace smoothing in their Naive Bayes classifier. In terms 
 of runtime, the random forest and sklearn's Naive Bayes both run much quicker than our Naive Bayes.
-See [naive_bayes.py](/code/naive_bayes.py).
+See [naive_bayes.py](/a2/code/naive_bayes.py).
 
 
 ## 1.4)
 
-1. See [naive_bayes.py](naive_bayes.py) for the code
+1. See [naive_bayes.py](/a2/code/naive_bayes.py) for the code
 2. We need to modify the fit function. For conditional probability with Laplace smoothing, we add beta to the numerator and we add beta
    for each feature (word in this case) to the denominator. All of this is done in the fit function, so we don't need to change predict.
 3. Scikit-learn's Bernoulli Naive Bayes, which is what we are using in this case, uses a beta value of 1. When we use a beta value of 1
@@ -58,7 +58,7 @@ See [naive_bayes.py](/code/naive_bayes.py).
    that some objects will appear multiple times and some objects will not appear in the dataset. Since we are not training on the full 
    dataset, we will not get a training error of 0 since some elements will be unseen to the tree when we are predicting the full
    dataset to calculate the training error. We are also not splitting on all of the features, so this will impact the accuracy of the tree.
-2. see [random_forest.py](/code/random_forest.py)
+2. see [random_forest.py](/a2/code/random_forest.py)
 3. Random forest info gain  
 	  Training error: 0.000  
 	  Testing error: 0.174  
@@ -83,10 +83,10 @@ See [naive_bayes.py](/code/naive_bayes.py).
    included plots of the testing error and runtime vs. number of trees. The testing error plot demonstrates the variability of the testing results
    due to randomness, but demonstrates that our forest is within a few percent of sklearn's.
 
-   ![q2_forest_errors](/figs/q2_forest_errors.png)  
+   ![q2_forest_errors](/a2/figs/q2_forest_errors.png)  
    
     The runtime plot shows how much slower our forest is.  
-   ![q2_forest_runtime](/figs/q2_forest_runtime.png)
+   ![q2_forest_runtime](/a2/figs/q2_forest_runtime.png)
 		
 ## 2.2)
 
@@ -106,12 +106,12 @@ See [naive_bayes.py](/code/naive_bayes.py).
 
 ## 3.1)
 
-1. [kmeans.py](code/kmeans.py#L45)
+1. [kmeans.py](/a2/code/kmeans.py#L45)
 
 2. When plotting errors after every iteration of K-means, a trend emerged where for the most part, the error value only decreased marginally (<5%) every iteration of the algorithm. However, there was also occasionally a huge decrease from error values >10,000 to values <10,000.
 
 3.  
-![figure_3-1](figs/kmeans_3-1.png)
+![figure_3-1](/a2/figs/kmeans_3-1.png)
 
 4. The n_clusters hyperparameter dictates how many clusters to solve for.  
 The init hyperparameter dictates how centers will be chosen: randomly, from a set list of centers, or through a smarter sklearn function "k-means++".  
@@ -125,26 +125,26 @@ The max_iter hyperparameter dictates a ceiling on how many times k-means will re
 2. If test error is used instead of error, the problem will not be solved. The model will still be overfit, but to the test data instead of training data. This method would also contaminate the model, as it would use test data in a way that only training data should be used.
 
 3.   
-![kmeans_3-2_elbow](figs/kmeans_3-2_elbow.png)  
+![kmeans_3-2_elbow](/a2/figs/kmeans_3-2_elbow.png)  
 
 4. The biggest elbows in the figure seem to be at k=2, k=3, and k=4. The elbow at k=3 is the "largest" of the three and is likely the most suitable k value for the data.
 
 ## 3.3)
 
 1.  
-![q3-3-1](figs/q3-3-1.png)  
+![q3-3-1](/a2/figs/q3-3-1.png)  
 The result has 3 central clusters, grouped in a reasonable way. However, it also has 4 outlier points in the corners, 3 of which are assigned to the same clusters as the central points. It seems less than ideal to have obvious outliers grouped with the central clusters.
 
 2.  
-![q3-3-2](figs/q3-3-2.png)  
+![q3-3-2](/a2/figs/q3-3-2.png)  
 The largest elbow seems to be at k=8.
 
 3.  
-![q3-3-3](figs/q3-3-3.png)  
-See [kmedians.py](code/kmedians.py).
+![q3-3-3](/a2/figs/q3-3-3.png)  
+See [kmedians.py](/a2/code/kmedians.py).
 
 4.  
-![q3-3-4](figs/q3-3-4.png)  
+![q3-3-4](/a2/figs/q3-3-4.png)  
 The k-value that would be chosen here is 4, which seems to work well with how the plot for k=4 turned out.
 
 ## 3.4)
@@ -175,16 +175,16 @@ Note that for the purposes of this question, I will use "min_samples" (per sklea
 
 ## 4)
 
-1. Code is in [quantize_image.py](code/quantize_image.py)
+1. Code is in [quantize_image.py](/a2/code/quantize_image.py)
 
 2.  
-![b1](figs/b_1_image.png)
-![b2](figs/b_2_image.png)
-![b4](figs/b_4_image.png)
-![b6](figs/b_6_image.png)
+![b1](/a2/figs/b_1_image.png)
+![b2](/a2/figs/b_2_image.png)
+![b4](/a2/figs/b_4_image.png)
+![b6](/a2/figs/b_6_image.png)
 
-3. At [b=1](figs/b_1_colours.png), we only see a gray-blue and brown, the core colors for the mandrill's fur.  
-At [b=2](figs/b_2_colours.png), the "brown" is no longer present. A blue is still part of the palette, but the brown seems to have stratified into red and some grays.  
-At [b=4](figs/b_4_colours.png), the palette seems to have gained serious diversity. Multiple browns, greys, blues, and reds are now apparent. A yellow has also appeared for some of the fur.  
-At [b=6](figs/b_6_colours.png), the pallette has expanded in much the same way. The output compressed picture is almost indistinguishable from the original at low resolution.
+3. At [b=1](/a2/figs/b_1_colours.png), we only see a gray-blue and brown, the core colors for the mandrill's fur.  
+At [b=2](/a2/figs/b_2_colours.png), the "brown" is no longer present. A blue is still part of the palette, but the brown seems to have stratified into red and some grays.  
+At [b=4](/a2/figs/b_4_colours.png), the palette seems to have gained serious diversity. Multiple browns, greys, blues, and reds are now apparent. A yellow has also appeared for some of the fur.  
+At [b=6](/a2/figs/b_6_colours.png), the pallette has expanded in much the same way. The output compressed picture is almost indistinguishable from the original at low resolution.
 
