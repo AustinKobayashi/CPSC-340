@@ -1,0 +1,98 @@
+1.1)
+              Min: 0.352 
+              Max: 4.862 
+             Mean: 1.324625 
+           Median: 1.159 
+             Mode: 0.77 
+      5% quantile: 0.46495 
+     25% quantile: 0.718 
+     50% quantile: 1.159 
+     75% quantile: 1.81325 
+     95% quantile: 2.62405 
+     Region with max mean: WtdILI 
+     Region with min mean: Pac 
+     Region with max variance: Mtn 
+     Region with min variance: Pac 
+     /code/main.py also prints out these values
+
+1.2)
+
+     1. D - This histogram shows the frequency for each region
+     2. C - This histogram has no regions, it shows the frequencies of the matrix
+     3. B - This is the only box plot
+     4. A - This plots the illness percentage vs time
+     5. F - This scatter plot has a high correlation (data close together)
+     6. E - This scatter plot has a low correlation (data spaced out)
+   
+2.1) It makes sense to use equality based splitting for categorical features, since there isn't an order or 
+     ranking for threshold based splitting to use.
+
+2.2) Equality decision stump error = 0.380
+	  Threshold decision stump error = 0.253
+     see /figs/q2_2_decisionBoundary.pdf for a graph of the threshold boundaries
+     can compare it to /figs/q2_decisionBoundary.pdf which is a grapg of the equality decision stump
+
+2.3)
+     See /code/simple_decision.py for the code
+     
+2.4) The sklearn's graph decreases in classification error as the depth increases, until it plateaus at depth 9
+     where the classification error equals to 0. Our decision tree decreases in classification error between 1 
+     and 5 depth, then it plateaus at depth 5 with 0.1075 classification error. Examining the split values for the
+     decision tree, from depth 5 to 15 the splits are identical. This explains why the classification error
+     plateaus at depth 5. This behaviour is part of the decision tree fit function where if the splitVariable is 
+     equal to "none" the function returns and does not make any more splits. It does not make any more splits 
+     since additional splits would not decrease the error. This difference between sklearn's tree and our own
+     is due to the greedy recursive splitting algorithm that our tree uses where it make splits that do not help 
+     the accuracy as much as the splits made by using information gain (what sklearn uses)
+     see /figs/q2_4_tree_errors.pdf  for a graph of the results
+   
+2.5) O(m n d log(n))
+     see /figs/proof.jpg for the proof
+
+3.1) Training error decreases between depth 1 and 5, then it plateaus at depth 5 with 0.1075 training error.
+     The testing error decreases between depth 1 and 4, has a very slight increase between depth 4 and 5, then
+     plateaus at depth 5 with 0.161 testing error. Our tree stops growing at depth 5, as said in the answer for
+     question 2.4, so the effects of overfitting aren't as prominent as the could have been if our tree continued
+     to grow past depth 5. (see /figs/q3_1_training_and_testing_errors.pdf)
+
+3.2) When using n/2 to n (the second half) of the data set as the validation set, we need a depth of 4 to minimize
+     the validation error. At depth 4 we get a validation error of 0.1650 and the graph plateaus so greater depths
+     have the same error (see /figs/q3_2_validation_set_second_half.pdf). Using the 0 to n/2 (the first half) of 
+     the data set as the validation set, we need a depth of 4 again to minimize the validation error. Here we get 
+     a validation error of 0.1550, so we have slightly better accuracy compared to using the second half of the 
+     data set as the validation set (see /figs/q3_2_validation_set_first_half.pdf). Using n/4 to n (last 3/4) as 
+     the validation set gives an ever lower validation error of 0.1467 at depth 4. The test error here is also 
+     slightly lower than using the first half as the validation set (0.1710 vs. 0.1745)
+
+4.1)
+
+1. KNN.predict() has been written.
+2. For k=1:  training error = 0.000, test error = 0.065
+   For k=3:  training error = 0.028, test error = 0.066
+   For k=10: training error = 0.072, test error = 0.097
+3. figures are present in the /figs directory
+4. For k = 1, training error is 0 since the nearest neighbor is always identical to the given datum
+5. Without an explicit test set, it might be safest to create a validation set and use the k that yields the lowest validation error.
+
+4.2)
+
+1. For 3 model runs in sequence, with k=1, k=3, and k=10, using CNN on the citiesBig1 dataset took 7.68s, using KNN took 77.14s (recorded using the unix 'time' command). 
+2. For k = 1, condensed NN finished with a subset of 457 entries and had training error of 0.008 and test error of 0.018.
+3. figure is present in the /figs directory
+4. With our KNN implementation, every training datum had an identical match in the model data, and so always was exactly correct. With CNN, only some data have matches in the model, so there will be some innacuratcy.
+5. O(t s log(s))
+6. The data for citiesBig2 is relatively stratified; when viewing it seqentially, there are large chunks where the labels are all the same. As a result, CNN ends wih a subset with a mere 30 entries, thus the innacuracy in the test data. 
+7. Using scikit-learn's DecisionTreeClassifier worked well, and much more quickly than the KNN. Overall it seems that the KNN yields a lower approximation error (0.010) but higher test error (0.018) whereas the decision tree yields higher approximation error (0.011) but lower test error (0.011).
+   see /figs/q4_2_tree_decision_surface.pdf for a graph of the decision tree decision surface
+
+
+5)
+
+1. Looking at scatterplots can be useful for identifying what modeling method will be most effective and any irregularities in the data that will make modeling it difficult.
+2. The examples in a dataset will not be IID if they are not independent. If the order of the examples matters, then they are not independent, so some examples may rely on previous examples.
+3. A validation set is created as a subset of the training data set to reduce the chance of overfitting, whereas a test set is used only to determine the accuracy of a predictive model.
+4. Parametric models tend to reach a point where additional training data doesn't provide any further benefit, while non-parametric models don't have the same plateau.
+5. Though standardizing data might change accuracy a little, for the most part a decision tree should be unaffected bu the change. However, a KNN will likely suffer from standardization, as the process will devalue the distance to outliers and potentially skew predictions.
+6. Increasing k in a given KNN increases the prediction asymptotic runtime.
+7. As k approaches the size of the training dataset, the training error will approach the ratio of true/false labels. However, the approximation error will approach 0. This is because the test set, drawn from the same distribution as the training set, should have approximately the same ratio of true/false labels and thus a similar accuracy.
+8. For a parametric model, increasing training examples will eventually lead to overfitting, bringing down training error but at the same time increasing test error and in turn approximation error.

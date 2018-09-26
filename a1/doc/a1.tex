@@ -1,0 +1,277 @@
+\documentclass{article}
+
+
+\usepackage[]{algorithm2e}
+
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{amssymb}
+\usepackage{listings} 
+
+
+% Colors
+\definecolor{blu}{rgb}{0,0,1}
+\def\blu#1{{\color{blu}#1}}
+\definecolor{gre}{rgb}{0,.5,0}
+\def\gre#1{{\color{gre}#1}}
+\definecolor{red}{rgb}{1,0,0}
+\def\red#1{{\color{red}#1}}
+
+% Math
+\def\norm#1{\|#1\|}
+\def\R{\mathbb{R}}
+\def\argmax{\mathop{\rm arg\,max}}
+\def\argmin{\mathop{\rm arg\,min}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\alignStar}[1]{\begin{align*}#1\end{align*}}
+
+% LaTeX
+\newcommand{\fig}[2]{\includegraphics[width=#1\textwidth]{#2}}
+\newcommand{\centerfig}[2]{\begin{center}\includegraphics[width=#1\textwidth]{#2}\end{center}}
+\def\items#1{\begin{itemize}#1\end{itemize}}
+\def\enum#1{\begin{enumerate}#1\end{enumerate}}
+
+\def\rubric#1{\gre{Rubric: \{#1\}}}{}
+
+\begin{document}
+
+\title{CPSC 340 Assignment 1 (due 2018-01-17 at 9:00pm)}
+
+\date{}
+\maketitle
+
+\vspace{-6em}
+
+\section*{Instructions}
+\rubric{mechanics:5}
+
+\textbf{IMPORTANT! Before proceeding, please carefully read the general homework instructions at} \url{https://github.ugrad.cs.ubc.ca/CPSC340-2017W-T2/home/blob/master/homework_instructions.md}.
+Please pay special attention to the section on visualizations as there were
+no visualizations required in a0.
+
+\textbf{A note on the provided code:} in the \emph{code} directory we provide you with a file called
+\emph{main.py}. This file, when run with different arguments, runs the code for different
+parts of the assignment. For example,
+\begin{verbatim}
+python main.py -q 1.1
+\end{verbatim}
+runs the code for Question 1.1. At present, this should do nothing, because the code
+for Question 1.1 still needs to be written (by you). But we do provide some of the bits
+and pieces to save you time, so that you can focus on the machine learning aspects.
+The file \emph{utils.py} contains some helper functions.
+You're not required to read/understand the code in there (although you're welcome to!) and will not need to modify it.
+
+
+\section{Data Exploration}
+
+
+Your repository contains the file \emph{fluTrends.csv}, which contains estimates
+of the influenza-like illness percentage over 52 weeks on 2005-06 by Google Flu Trends.
+Your \emph{main.py} loads this data for you and stores it in a pandas DataFrame \texttt{X},
+where each row corresponds to a week and each column
+corresponds to a different
+region. If desired, you can convert from a DataFrame to a raw numpy array with \texttt{X.values()}.
+
+\subsection{Summary Statistics}
+\rubric{reasoning:2}
+
+\blu{Report the following statistics}:
+The minimum, maximum, mean, median, and mode of all values across the dataset.
+\enum{
+\item The $5\%$, $25\%$, $50\%$, $75\%$, and $95\%$ quantiles of all values across the dataset.
+\item The names of the regions with the highest and lowest means, and the highest and lowest variances.
+}
+In light of the above, \blu{is the mode a reliable estimate of the most ``common" value? Describe another way we could give a meaningful ``mode" measurement for this (continuous) data.} Note: the function \texttt{utils.mode()} will compute the mode value of an array for you.
+
+
+\subsection{Data Visualization}
+\rubric{reasoning:3}
+
+Consider the figure below.
+
+\fig{1}{../figs/q12visualize-unlabeled}
+
+The figure contains the following plots, in a shuffled order:
+\enum{
+\item A single histogram showing the distribution of \emph{each} column in $X$.
+\item A histogram showing the distribution of each the values in the matrix $X$.
+\item A boxplot grouping data by weeks, showing the distribution across regions for each week.
+\item A plot showing the illness percentages over time.
+\item A scatterplot between the two regions with highest correlation.
+\item A scatterplot between the two regions with lowest correlation.
+}
+
+\blu{Match the plots (labeled A-F) with the descriptions above (labeled 1-6), with an extremely brief (a few words is fine) explanation for each decision.}
+
+
+
+
+
+\section{Decision Trees}
+
+If you run \texttt{python main.py -q 2}, it will load a dataset containing longtitude and latitude data for 400 cities in the US, along with a class label indicating whether they were a ``red" state or a ``blue" state in the 2012 election.\footnote{The cities data was sampled from \url{http://simplemaps.com/static/demos/resources/us-cities/cities.csv}. The election information was collected from Wikipedia.}
+Specifically, the first column of the variable $X$ contains the longitude and the second variable contains the latitude,
+while the variable $y$ is set to $1$ for blue states and $2$ for red states.
+After it loads the data, it plots the data and then fits two simple classifiers: a classifier that always predicts the
+most common label ($1$ in this case) and a decision stump
+that discretizes the features (by rounding to the nearest integer)
+and then finds the best equality-based rule (i.e., check
+ if a feature is equal to some value).
+It reports the training error with these two classifiers, then plots the decision areas made by the decision stump.
+
+\subsection{Splitting rule}
+\rubric{reasoning:1}
+
+Is there a particular type of features for which it makes sense to use an equality-based splitting rule rather than the threshold-based splits we discussed in class?
+
+
+\subsection{Decision Stump Implementation}
+\rubric{code:3}
+
+The file \emph{decision\_stump.py} contains the class \texttt{DecisionStumpEquality} which finds the best decision stump using the equality rule and then makes predictions using that rule. Instead of discretizing the data and using a rule based on testing an equality for a single feature, we want to check whether a feature is above or below a threshold and split the data accordingly (this is the more sane approach, which we discussed in class). \blu{Create a \texttt{DecisionStump} class to do this, and report the updated error you obtain by using inequalities instead of discretizing and testing equality.}
+
+Hint: you may want to start by copy/pasting the contents \texttt{DecisionStumpEquality} and then make modifications from there. 
+
+
+\subsection{Constructing Decision Trees}
+\rubric{code:2}
+
+Once your decision stump class is finished, running \texttt{python main.py -q 2.3} will fit
+a decision tree of depth~2 to the same dataset (which results in a lower training error).
+Look at how the decision tree is stored and how the (recursive) \emph{predict} function works.
+\blu{Using the same splits as the fitted depth-2 decision tree, write an alternative version of the predict
+function for classifying one training example as a simple program using if/else statements
+(as in slide 6 of the Decision Trees lecture).} Save your code in a new file called
+\texttt{simple\string_decision.py} (in the \emph{code} directory) and make sure you link to this file from your README.
+
+Note: this code should implement the specific, fixed decision tree
+which was learned after calling \texttt{fit} on this particular data set. It does not need to be a learnable model.
+
+\subsection{Decision Tree Training Error}
+\rubric{reasoning:2}
+
+Running \texttt{python main.py -q 2.4} fits decision trees of different depths using two different implementations: first,
+our own implementation using your DecisionStump, and second, the decision tree implementation from the popular Python ML library \emph{scikit-learn}.
+The decision tree from sklearn uses a more sophisticated splitting criterion called the information gain, instead of just the classification accuracy.
+Run the code and look at the figure.
+\blu{Describe what you observe. Can you explain the results?}
+
+Note: we set the \verb|random_state| because sklearn's DecisionTreeClassifier is non-deterministic. I'm guessing this is
+because it breaks ties randomly.
+
+Note: the code also prints out the amount of time spent. You'll notice that sklearn's implementation is substantially faster. This is because
+our implementation is based on the $O(n^2d)$ decision stump learning algorithm and sklearn's implementation presumably uses the faster $O(nd\log n)$
+decision stump learning algorithm that we discussed in lecture.
+
+
+\subsection{Cost of Fitting Decision Trees}
+\rubric{reasoning:3}
+
+In class, we discussed how in general the decision stump minimizing the classification error can be found in $O(nd\log n)$ time.
+Using the greedy recursive splitting procedure, \blu{what is the total cost of fitting a decision tree of depth $m$ in terms of $n$, $d$, and $m$?}
+
+Hint: even thought there could be $(2^m-1)$ decision stumps, keep in mind not every stump will need to go through every example. Note also that we stop growing the decision tree if a node has no examples, so we may not even need to do anything for many of the $(2^m-1)$ decision stumps.
+
+
+\section{Training and Testing}
+If you run \texttt{python main.py \string-q 3}, it will load \emph{citiesSmall.pkl}.
+Note that this file contains not only training data, but also test data, \texttt{X\string_test} and \texttt{y\string_test}.
+After training a depth-2 decision tree it will evaluate the performance of the classifier on the test data.\footnote{The code uses the "information gain" splitting criterion; see the Decision Trees bonus slides for more information.}
+With a depth-2 decision tree, the training and test error are fairly close, so the model hasn't overfit much.
+
+\subsection{Training and Testing Error Curves}
+\rubric{reasoning:2}
+
+\blu{Make a plot that contains the training error and testing error as you vary the depth from 1 through 15. How do each of these errors change with the decision tree depth?}
+
+Note: it's OK to reuse the provided code from part 2.4 as a starting point.
+
+
+\subsection{Validation Set}
+\rubric{reasoning:3}
+
+Suppose that we didn't have an explicit test set available. In this case, we might instead use a \emph{validation} set. Split the training set into two equal-sized parts: use the first $n/2$ examples as a training set and the second $n/2$ examples as a validation set (we're assuming that the examples are already in a random order). \blu{What depth of decision tree would we pick to minimize the validation set error? Does the answer change if you switch the training and validation set? How could use more of our data to  estimate the depth more reliably?}
+
+
+\section{K-Nearest Neighbours}
+
+In the \emph{citiesSmall} dataset, nearby points tend to receive the same class label because they are part of the same U.S. state. This indicates that a $k$-nearest neighbours classifier might be a better choice than a decision tree. The file \emph{knn.py} has implemented the training function for a $k$-nearest neighbour classifier (which is to just memorize the data).
+
+
+\subsection{KNN Prediction}
+\rubric{code:3, reasoning:4}
+
+Fill in the \emph{predict} function in \emph{knn.py} so that the model file implements the $k$-nearest neighbour prediction rule.
+You should Euclidean distance, and may numpy's \emph{sort} and/or \emph{argsort} functions useful.
+You can also use \emph{utils.euclidean\_dist\_squared}, which computes the squared Euclidean distances between all pairs of points in two matrices.
+\blu{
+\enum{
+\item Write the \emph{predict} function.
+\item Report  the training and test error obtained on the \emph{citiesSmall} dataset for $k=1$, $k=3$, and $k=10$. How do these numbers compare to what you got with the decision tree?
+\item Hand in the plot generated by \emph{utils.plotClassifier} on the \emph{citiesSmall} dataset for $k=1$, using both your implementation of KNN and the KNeighborsClassifier from scikit-learn.
+\item Why is the training error $0$ for $k=1$?
+\item If you didn't have an explicit test set, how would you choose $k$?
+}}
+
+\subsection{Condensed Nearest Neighbours}
+\rubric{code:3, reasoning:5}
+
+The dataset \emph{citiesBig1} contains a version of this dataset with more than 30 times as many cities. KNN can obtain a lower test error if it's trained on this dataset, but the prediction time will be very slow.
+A common strategy for applying KNN to huge datasets is called \emph{condensed nearest neighbours}, and the main idea is to only store a \emph{subset}
+of the training examples (and to only compare to these examples when making predictions). If the subset is small, then prediction will be faster.
+
+The most common variation of this algorithm works as follows:
+
+\begin{algorithm}[H]
+ initialize subset with first training example\;
+ \For{each subsequent training example}{
+  \eIf{the example is incorrectly classified by the KNN classifier using the current subset}{
+   add the current example to the subset\;
+   }{
+   do \emph{not} add the current example to the subset (do nothing)\;
+  }
+ }
+ \caption{Condensed Nearest Neighbours}
+\end{algorithm}
+
+You are provided with an implementation of this \emph{condensed nearest neighbours} algorithm in \emph{knn.py}.
+
+Your tasks:
+
+\blu{
+\enum{
+\item The point of this algorithm is to be faster than KNN. Try running the condensed NN on the\\\emph{citiesBig1} dataset and report how long it takes to make a prediction. What about if you try to use KNN for this dataset -- how long did it take before you panicked and went for CTRL-C... or did it actually finish?
+\item Report the training and testing errors for condensed NN, as well as the number of variables in the subset, on the \emph{citiesBig1} dataset with $k=1$.
+\item Hand in the plot generated by \emph{utils.plotClassifier} on the \emph{citiesBig1} dataset for $k=1$.
+\item Why is the training error with $k=1$ now greater than $0$?
+\item If you have $s$ examples in the subset, what is the cost of running the predict function on $t$ test examples in terms of $n$, $d$, $t$, and $s$?
+\item Try out your function on the dataset \emph{citiesBig2}. Why are the  test error \emph{and} training error so high (even for $k=1$) for this method on this dataset?
+\item Try running a decision tree on \emph{citiesBig1} using scikit-learn's \texttt{DecisionTreeClassifier} with default hyperparameters. Does it work? Is it fast? Any other thoughts? Overall, do you prefer decicison trees of (condensed) KNN for this data set? Include the usual plot of the decision surface. 
+}
+}
+
+
+
+\section{Very-Short Answer Questions}
+\rubric{reasoning:8}
+
+\blu{Write a short one or two sentence answer to each of the questions below}. Make sure your answer is clear and concise.
+
+\enum{
+\item What is one reason we would want to look at scatterplots of the data before doing supervised learning?
+\item What is a reason that the examples in a training and test set might not be IID?
+\item What is the difference between a validation set and a test set?
+\item What is the main advantage of non-parametric models?
+\item A standard pre-processing step is ``standardization'' of the features: for each column of $X$ we subtract its mean and divide by its variance. Would this pre-processing change the accuracy of a decision tree classifier? Would it change the accuracy of a KNN classifier?
+\item Does increasing $k$ in KNN affect the training or prediction asymptotic runtimes?
+\item How does increase the parameter $k$ in $k$-nearest neighbours affect the two parts (training error and approximation error) of the fundamental trade-off (hint: think of the extreme values).
+\item For any parametric model, how does increasing number of training examples $n$ affect the two parts of the fundamental trade-off.
+}
+
+
+\end{document}

@@ -1,0 +1,233 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{listings} % For displaying code
+\usepackage{algorithm2e} % pseudo-code
+
+\def\rubric#1{\gre{Rubric: \{#1\}}}{}
+
+% Colors
+\definecolor{blu}{rgb}{0,0,1}
+\def\blu#1{{\color{blu}#1}}
+\definecolor{gre}{rgb}{0,.5,0}
+\def\gre#1{{\color{gre}#1}}
+\definecolor{red}{rgb}{1,0,0}
+\def\red#1{{\color{red}#1}}
+\def\norm#1{\|#1\|}
+
+% Math
+\def\R{\mathbb{R}}
+\def\argmax{\mathop{\rm arg\,max}}
+\def\argmin{\mathop{\rm arg\,min}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\alignStar}[1]{\begin{align*}#1\end{align*}}
+\def\half{\frac 1 2}
+
+% LaTeX
+\newcommand{\fig}[2]{\includegraphics[width=#1\textwidth]{#2}}
+\newcommand{\centerfig}[2]{\begin{center}\includegraphics[width=#1\textwidth]{#2}\end{center}}
+\def\items#1{\begin{itemize}#1\end{itemize}}
+\def\enum#1{\begin{enumerate}#1\end{enumerate}}
+
+\begin{document}
+
+
+\title{CPSC 340 Assignment 5 (due Friday March 23 at 9:00pm)}
+\date{}
+\maketitle
+
+\vspace{-7em}
+
+\section*{Instructions}
+\rubric{mechanics:5}
+
+The above points are allocated for following the general homework instructions. In addition to the usual instructions:
+if you're embedding your answers in a document that also contains the questions,
+your answers should be in a colour that clearly stands out, such as
+\gre{green} or \red{red}. This should hopefully make it much easier for the grader to find
+your answers. To make something green, you can use the LaTeX macro \verb|\gre{my text}|.
+
+Also, \textbf{\red{READ THIS}}: Like in a2, you'll need to grab the data from the course website. FYI: this happens because I'm using the GitHub API in a fairly silly way, which limits individual files to 1 MB each. 
+
+\vspace{1em}
+
+
+\section{MAP Estimation}
+\rubric{reasoning:10}
+
+In class, we considered MAP estimation in a regression model where we assumed that:
+\items{
+\item The likelihood $p(y_i | x_i, w)$ is a normal distribution with a mean of $w^Tx_i$ and a variance of $1$.
+\item The prior for each variable $j$, $p(w_j)$, is a normal distribution with a mean of zero and a variance of $\lambda^{-1}$.
+}
+Under these assumptions, we showed that this leads to the standard L2-regularized least squares objective function:
+\[
+f(w) = \frac{1}{2}\norm{Xw - y}^2 + \frac \lambda 2 \norm{w}^2.
+\]
+\blu{For each of the alternate assumptions below, show how the loss function would change} (simplifying as much as possible):
+\enum{
+\item We use a zero-mean Laplace prior for each variable with a scale parameter of $\lambda^{-1}$, so that
+\[
+p(w_j) = \frac{\lambda}{2}\exp(-\lambda|w_j|).
+\]
+\item We use a Laplace likelihood with a mean of $w^Tx_i$ and a scale of $1$, so that
+\[
+p(y_i | x_i, w) = \frac 1 2 \exp(-|w^Tx_i - y_i|).
+\]
+\item We use a Gaussian likelihood where each datapoint has variance $\sigma^2$ instead of $1$,
+\[
+p(y_i | x_i,w) = \frac{1}{\sqrt{2\sigma^2\pi}}\exp\left(-\frac{(w^Tx_i - y_i)^2}{2\sigma^2}\right).
+\]
+\item We use a Gaussian likelihood where each datapoint has its own variance $\sigma_i^2$,
+\[
+p(y_i | x_i,w) = \frac{1}{\sqrt{2\sigma_i^2\pi}}\exp\left(-\frac{(w^Tx_i - y_i)^2}{2\sigma_i^2}\right).
+\]
+}
+
+
+
+
+
+
+
+
+
+\section{Principal Component Analysis}
+
+\subsection{PCA by Hand}
+\rubric{reasoning:3}
+
+
+Consider the following dataset, containing 5 examples with 2 features each:
+\begin{center}
+\begin{tabular}{cc}
+$x_1$ & $x_2$\\
+\hline
+-2 & -1\\
+-1 & 0\\
+0 & 1\\
+1 & 2\\
+2 & 3\\
+\end{tabular}
+\end{center}
+Recall that with PCA we usually assume that the PCs are normalized ($\norm{w} = 1$), we need to center the data before we apply PCA, and that the direction of the first PC is the one that minimizes the orthogonal distance to all data points.
+\blu{
+\enum{
+\item What is the first principal component?
+\item What is the (L2-norm) reconstruction error of the point (3,3)? (Show your work.)
+\item What is the (L2-norm) reconstruction error of the point (3,4)? (Show your work.)
+}
+}
+
+\subsection{Data Visualization}
+\rubric{reasoning:2}
+
+If you run \verb|python main.py -q 2|, it will load the animals dataset and create a scatterplot based on two randomly selected features.
+We label some random points, but because of the binary features the scatterplot shows us almost nothing about the data.
+
+The class \emph{pca.PCA} applies the classic PCA method (orthogonal bases via SVD) for a given $k$.
+Use this class so that the scatterplot uses the latent features $z_i$ from the PCA model.
+Make a scatterplot of the two columns in $Z$, and label a bunch of the points in the scatterplot. \blu{Hand in your code and the scatterplot}.
+
+
+\subsection{Data Compression}
+\rubric{reasoning:2}
+
+\blu{\enum{
+\item How much of the variance is explained by our 2-dimensional representation from the previous question?
+\item How many PCs are required to explain 50\% of the variance in the data?
+}}
+
+\section{PCA Generalizations}
+
+\subsection{Robust PCA}
+\rubric{code:10}
+
+If you run \verb|python main -q 3.1| the code will load a dataset $X$ where each row contains the pixels from a single frame of a video of a highway. The demo applies PCA to this dataset and then uses this to reconstruct the original image.
+It then shows the following 3 images for each frame (pausing and waiting for input between each frame):
+\enum{
+\item The original frame.
+\item The reconstruction based on PCA.
+\item A binary image showing locations where the reconstruction error is non-trivial.
+}
+Recently, latent-factor models have been proposed as a strategy for ``background subtraction'': trying to separate objects from their background. In this case, the background is the highway and the objects are the cars on the highway. In this demo, we see that PCA does an ok job of identifying the cars on the highway in that it does tend to identify the locations of cars. However, the results aren't great as it identifies quite a few irrelevant parts of the image as objects.
+
+Robust PCA is a variation on PCA where we replace the L2-norm with the L1-norm,
+\[
+f(Z,W) = \sum_{i=1}^n\sum_{j=1}^d |w_j^Tz_i - x_{ij}|,
+\]
+and it has recently been proposed as a more effective model for background subtraction. \blu{Complete the class \emph{pca.RobustPCA},
+that uses a smooth approximation to the absolute value to implement robust PCA. Comment on the quality of the results.}
+
+Hint: most of the work has been done for you in the class \emph{pca.AlternativePCA}.
+This work implements an alternating minimization approach to minimizing the (L2) PCA objective (without enforcing orthogonality). This gradient-based approach to PCA can be modified to use a smooth approximation of the L1-norm. Note that the log-sum-exp approximation to the absolute value may be hard to get working due to numerical issues, and a numerically-nicer approach is to use the ``multi-quadric'' approximation:
+\[
+|\alpha| \approx \sqrt{\alpha^2 + \epsilon},
+\]
+where $\epsilon$ controls the accuracy of the approximation (a typical value of $\epsilon$ is $0.0001$).
+
+
+\section{Multi-Dimensional Scaling}
+
+If you run \verb|python main.py -q 4|, the code will load the animals dataset and then apply gradient descent to minimize the following multi-dimensional scaling (MDS) objective (starting from the PCA solution):
+\begin{equation}
+\label{eq:MDS}
+f(Z) =  \frac{1}{2}\sum_{i=1}^n\sum_{j=i+1}^n (  \norm{z_i - z_j} - \norm{x_i - x_j})^2.
+\end{equation}
+ The result of applying MDS is shown below.
+\centerfig{.5}{../figs/MDS_animals.png}
+Although this visualization isn't perfect (with ``gorilla'' being placed close to the dogs and ``otter'' being placed close to two types of bears), this visualization does organize the animals in a mostly-logical way.
+
+
+\subsection{ISOMAP}
+\rubric{code:10}
+
+Euclidean distances between very different animals are unlikely to be particularly meaningful.
+However, since related animals tend to share similar traits we might expect the animals to live on a low-dimensional manifold.
+This suggests that ISOMAP may give a better visualization.
+Fill in the class \emph{ISOMAP} so that it computes the approximate geodesic distance
+(shortest path through a graph where the edges are only between nodes that are $k$-nearest neighbours) between each pair of points,
+and then fits a standard MDS model~\eqref{eq:MDS} using gradient descent. \blu{Plot the results using $2$ and using $3$-nearest neighbours}.
+
+Note: when we say $2$ nearest neighbours, we mean the two closest neigbours excluding the point itself. This is the opposite convention from what we used in KNN at the start of the course.
+
+The function \emph{utils.dijskstra} can be used to compute the shortest (weighted) distance between two points in a weighted graph.
+This function requires an $n \times n$ matrix giving the weights on each edge (use $0$ as the weight for absent edges).
+Note that ISOMAP uses an undirected graph, while the $k$-nearest neighbour graph might be asymmetric.
+One of the usual heuristics to turn this into a undirected graph is to include an edge $i$ to $j$ if $i$ is a KNN of $j$ or if $j$ is a KNN of $i$.
+(Another possibility is to include an edge only if $i$ and $j$ are mutually KNNs.)
+
+\subsection{Reflection}
+\rubric{reasoning:2}
+
+\blu{Briefly comment on PCA vs. MDS vs. ISOMAP for dimensionality reduction on this particular data set. In your opinion, which method did the best job and why?}
+
+
+\section{Very-Short Answer Questions}
+\rubric{reasoning:10}
+
+\enum{
+\item Why is the kernel trick often better than explicitly transforming your features into a new space?
+\item Why is the kernel trick more popular for SVMs than with logistic regression?
+\item What is the key advantage of stochastic gradient methods over gradient descent methods?
+\item Does stochastic gradient descent with a fixed $\alpha$ converge to the minimum of a convex function in general?
+\item What is the difference between multi-label and multi-class classification?
+\item What is the difference between MLE and MAP?
+\item Linear regression with one feature and PCA with 2 features (and $k=1$) both find a line in a two-dimensional space. Do they find the same line?
+ Briefly justify your answer.
+\item Are the vectors minimizing the PCA objective unique? Briefly justify your answer
+\item Name two methods for promoting sparse solutions in a linear regression model that result in convex problems.
+\item Can we use the normal equations to solve non-negative least squares problems?
+}
+
+
+
+\end{document}
