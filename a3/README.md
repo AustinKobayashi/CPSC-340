@@ -17,7 +17,7 @@
 6. | 14 2 |  
 | 2 17 |
 
-![work](figs/q1_1.jpg)
+![work](/a3/figs/q1_1.jpg)
 
 7.  True
 8.  True
@@ -27,23 +27,23 @@
 12. True
 
 ### 1.2
-![work](figs/q1_2.jpg)
+![work](/a3/figs/q1_2.jpg)
 
 ### 1.3
-![work](figs/q1_3.jpg)
+![work](/a3/figs/q1_3.jpg)
 
 ## 2
 -----
 ### 2.1
-[code](code/linear_model.py)
-![plot](figs/least_squares_outliers_weighted.png)
+[code](/a3/code/linear_model.py)
+![plot](/a3/figs/least_squares_outliers_weighted.png)
 
 ### 2.2
-![work](figs/q2_2.jpg)
+![work](/a3/figs/q2_2.jpg)
 
 ### 2.3
-[code](code/linear_model.py)
- ![plot](figs/least_squares_robust.png)
+[code](/a3/code/linear_model.py)
+ ![plot](/a3/figs/least_squares_robust.png)
 
 ## 3
 -----
@@ -51,8 +51,8 @@
 ### 3.1
 Training error = 3551.3  
 Test error     = 3393.9  
-[code](code/linear_model.py)
-![plot](figs/least_squares_bias.png)
+[code](/a3/code/linear_model.py)
+![plot](/a3/figs/least_squares_bias.png)
 	
 ### 3.2
 p = 0  
@@ -111,25 +111,25 @@ Test error     = 256.3
 Approx. error  = 21.226  
 
 We can see from the results that p = 0 performs increadibly poorly since it is a horizontal line at the y-intercept.
-![plot](figs/PolyBasis0.png)
+![plot](/a3/figs/PolyBasis0.png)
 
 p = 1 gives us the same result as our LeastSquaresBias. 
-![plot](figs/PolyBasis1.png)
+![plot](/a3/figs/PolyBasis1.png)
 
 The training error decreases as p increase, with the lowest value being 235.1. The test error decreases between 
 p = 0 and p = 5, from 14390.8 to 239.5, then it increases to 246.0 at p = 6. At p = 6, our training error approximates the test error the closest
 for all values of p, with an approximation error of -2.577. 
-![plot](figs/PolyBasis2.png)
-![plot](figs/PolyBasis3.png)
-![plot](figs/PolyBasis4.png)
-![plot](figs/PolyBasis5.png)
-![plot](figs/PolyBasis6.png)
+![plot](/a3/figs/PolyBasis2.png)
+![plot](/a3/figs/PolyBasis3.png)
+![plot](/a3/figs/PolyBasis4.png)
+![plot](/a3/figs/PolyBasis5.png)
+![plot](/a3/figs/PolyBasis6.png)
 
 At p = 6 our model starts overfitting and the test error starts to increase.
-![plot](figs/PolyBasis7.png)
-![plot](figs/PolyBasis8.png)
-![plot](figs/PolyBasis9.png)
-![plot](figs/PolyBasis10.png)
+![plot](/a3/figs/PolyBasis7.png)
+![plot](/a3/figs/PolyBasis8.png)
+![plot](/a3/figs/PolyBasis9.png)
+![plot](/a3/figs/PolyBasis10.png)
 	
 	
 

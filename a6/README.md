@@ -5,7 +5,7 @@ CPSC 340 a6 for l4l0b.
 ## 1.1
 -----
 
-[code](doc/a6.ipynb) <br>
+[code](/a6/doc/a6.ipynb) <br>
 
 ### 1.1.1
 Item: B000HCLLMM <br>
@@ -23,20 +23,20 @@ Link: https://www.amazon.com/dp/0981850006
 -----
 
 ### 1.2.1
-![plot](figs/q_1_2_1.png) <br>
-[code](doc/a6.ipynb) <br>
+![plot](/a6/figs/q_1_2_1.png) <br>
+[code](/a6/doc/a6.ipynb) <br>
 
 ### 1.2.2
-![plot](figs/q_1_2_2.png) <br>
-[code](doc/a6.ipynb) <br>
+![plot](/a6/figs/q_1_2_2.png) <br>
+[code](/a6/doc/a6.ipynb) <br>
 
 ### 1.2.3
-![plot](figs/q_1_2_3.png) <br>
-[code](doc/a6.ipynb) <br>
+![plot](/a6/figs/q_1_2_3.png) <br>
+[code](/a6/doc/a6.ipynb) <br>
 
 ## 1.3
 -----
-[code](doc/a6.ipynb) <br>
+[code](/a6/doc/a6.ipynb) <br>
 [103866 103865  98897  72226 102810] <br>
 https://www.amazon.com/dp/B00IJB5MCS <br>
 https://www.amazon.com/dp/B00IJB4MLA <br>
@@ -46,7 +46,7 @@ https://www.amazon.com/dp/B00HVXQY9A <br>
 
 ## 1.4
 -----
-[code](doc/a6.ipynb) <br>
+[code](/a6/doc/a6.ipynb) <br>
 [103866 103867 103865  98068  98066] <br>
 https://www.amazon.com/dp/B00IJB5MCS <br>
 https://www.amazon.com/dp/B00IJB8F3G <br>
@@ -56,7 +56,7 @@ https://www.amazon.com/dp/B00EF3YF0Y <br>
 
 ## 1.5
 ----
-[code](doc/a6.ipynb) <br>
+[code](/a6/doc/a6.ipynb) <br>
 Grill brush total stars: 1244.0
 
 Euclidean distance: <br>
@@ -79,7 +79,7 @@ total popularity than those found while using euclidean distance.
 
 ## 1.6
 ----
-[code](doc/a6.ipynb) <br>
+[code](/a6/doc/a6.ipynb) <br>
 [13756 58435 10620 27755 10980 ]<br>
 https://www.amazon.com/dp/B000MVLB8W <br>
 https://www.amazon.com/dp/B004W2GOZM <br>
@@ -89,7 +89,7 @@ https://www.amazon.com/dp/B000HCR8C4 <br>
 
 ## 2
 ----
-[code + report](doc/a6.ipynb) <br>
+[code + report](/a6/doc/a6.ipynb) <br>
 
 Final test error: 0.221
 

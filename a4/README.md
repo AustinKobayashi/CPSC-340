@@ -2,25 +2,25 @@
 ## 1
 -----
 ### 1.1
-![work](figs/q1_1.jpg)
+![work](/a4/figs/q1_1.jpg)
 
 ### 1.2
-![work](figs/q1_2.jpg)
+![work](/a4/figs/q1_2.jpg)
 
 ### 1.3
-![work](figs/q1_3.jpg)
+![work](/a4/figs/q1_3.jpg)
 
 ### 1.4
-![work](figs/q1_4.jpg)
+![work](/a4/figs/q1_4.jpg)
 
 ### 1.5
-![work](figs/q1_5.jpg)
+![work](/a4/figs/q1_5.jpg)
 
 
 ## 2
 -----
 ### 2.1
-[code](code/linear_model.py) <br>
+[code](/a4/code/linear_model.py) <br>
 logRegL2 Training error: 0.002 <br>
 logRegL2 Validation error: 0.074 <br>
 num features: 101 <br>
@@ -28,7 +28,7 @@ iterations: 36
 
 
 ### 2.2
-[code](code/linear_model.py) <br>
+[code](/a4/code/linear_model.py) <br>
 logRegL1 Training error: 0.000 <br>
 logRegL1 Validation error: 0.052 <br>
 num features: 71 <br>
@@ -36,7 +36,7 @@ iterations: 78
 
 
 ### 2.3
-[code](code/linear_model.py) <br>
+[code](/a4/code/linear_model.py) <br>
 Training error: 0.000 <br>
 Validation error: 0.042 <br>
 num features: 24 <br>
@@ -55,7 +55,7 @@ feature selection, but still uses more features than L0-regularization (78 vs 24
 
 
 ### 2.5
-[code](code/main.py)
+[code](/a4/code/main.py)
 
 L2: <br>
 Training error: 0.002 <br>

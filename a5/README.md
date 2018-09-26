@@ -6,30 +6,30 @@ CPSC 340 a5 for l4l0b.
 -----
 
 ### 1.1
-![plot](figs/Q1_1.jpg)
+![plot](/a5/figs/Q1_1.jpg)
 
 ### 1.2
-![plot](figs/Q1_2.jpg)
+![plot](/a5/figs/Q1_2.jpg)
 
 ### 1.3
-![plot](figs/Q1_3.jpg)
+![plot](/a5/figs/Q1_3.jpg)
 
 ### 1.4
-![plot](figs/Q1_4.jpg)
+![plot](/a5/figs/Q1_4.jpg)
 
 ## 2
 -----
 ### 2.1
-![plot](figs/Q2_1_1.jpg)
-![plot](figs/Q2_1_2.jpg)
-![plot](figs/Q2_1_3.jpg)
+![plot](/a5/figs/Q2_1_1.jpg)
+![plot](/a5/figs/Q2_1_2.jpg)
+![plot](/a5/figs/Q2_1_3.jpg)
 
 ### 2.2
-[code](code/main.py) <br>
-![plot](figs/Q2_2.png)
+[code](/a5/code/main.py) <br>
+![plot](/a5/figs/Q2_2.png)
 
 ### 2.3
-[code](code/main.py) <br>
+[code](/a5/code/main.py) <br>
 
 1) 0.30193815155 <br>
 2) k = 5
@@ -37,26 +37,26 @@ CPSC 340 a5 for l4l0b.
 ## 3
 -----
 ### 3.1
-![plot](figs/highway_000.jpg)
-![plot](figs/highway_001.jpg)
-![plot](figs/highway_002.jpg)
-![plot](figs/highway_003.jpg)
-![plot](figs/highway_004.jpg)
-![plot](figs/highway_005.jpg)
-![plot](figs/highway_006.jpg)
-![plot](figs/highway_007.jpg)
-![plot](figs/highway_008.jpg)
-![plot](figs/highway_009.jpg)
+![plot](/a5/figs/highway_000.jpg)
+![plot](/a5/figs/highway_001.jpg)
+![plot](/a5/figs/highway_002.jpg)
+![plot](/a5/figs/highway_003.jpg)
+![plot](/a5/figs/highway_004.jpg)
+![plot](/a5/figs/highway_005.jpg)
+![plot](/a5/figs/highway_006.jpg)
+![plot](/a5/figs/highway_007.jpg)
+![plot](/a5/figs/highway_008.jpg)
+![plot](/a5/figs/highway_009.jpg)
 
-[code](code/pca.py) <br>
+[code](/a5/code/pca.py) <br>
 I believe that I implemented RobustPCA incorrectly but will comment on its quality for the sake of argument. Despite the fact that the loss for my RobustPCA is huge (~3 million), it does a better job of identifying the cars and their shadows compared to AlternativePCA. When veiwing the images, RobustPCA has a more distinct car + shadow shape for values above the threshold compared to AlternativePCA.
 
 ## 4
 -----
 ### 4.1
-[code](code/manifold.py) <br>
-![plot](figs/ISOMAP2_animals.png)
-![plot](figs/ISOMAP3_animals.png)
+[code](/a5/code/manifold.py) <br>
+![plot](/a5/figs/ISOMAP2_animals.png)
+![plot](/a5/figs/ISOMAP3_animals.png)
 
 ### 4.2
 PCA does an okay job at grouping the animals, such as placing the water animals near each other, but it still has problems such as placing giant panda near rabbit.
